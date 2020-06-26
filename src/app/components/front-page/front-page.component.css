@@ -1,0 +1,12 @@
+svg.material-icons {
+  height: 24px;
+  width: auto;
+}
+
+svg.material-icons:not(:last-child) {
+  margin-right: 8px;
+}
+
+.card {
+  margin-bottom: 10px;
+}

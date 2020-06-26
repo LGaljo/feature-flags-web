@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-3">
+    <button type="button" class="btn btn-outline-dark mr-1">Edit</button>
+    <button type="button" class="btn btn-outline-danger">Remove</button>
+  </div>
+  <div class="col-6 text-center">
+    <h2 *ngIf="app">Details of {{app.name}}</h2>
+    <h2 *ngIf="!app">Details</h2>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 20px">
+  <div class="col">
+    <p *ngIf="!app">No data available</p>
+    <div *ngIf="app">
+      <b>Name: </b>{{app.name}} [{{app.id}}]<br>
+      <b>Number of flags: </b>{{flags?.length}}
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 20px" *ngIf="app">
+  <div class="col">
+    <h3>Flags</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Type</th>
+        <th scope="col">Def. value</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let flag of flags; index as i" (click)="openDetails(flag)">
+        <th scope="row">{{i}}</th>
+        <td>{{flag.name}}</td>
+        <td>{{flag.description}}</td>
+        <td>{{flag.dataType}}</td>
+        <td>{{flag.defaultValue}}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-danger" style="padding: .08rem .5rem;">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
