@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col" *ngIf="!app">
+    <p>No app data</p>
+  </div>
+
+  <div class="col" *ngIf="app">
+    <h2>Create a rule in app {{app?.name}}</h2>
+  </div>
+</div>
+
+<div class="row" *ngIf="app">
+  <div class="col-md">
+    <p class="font-weight-bold">Choose a flag:</p>
+    <mat-form-field>
+      <mat-select (selectionChange)="selectFlag($event)">
+        <mat-option *ngFor="let flag of flags" [value]="flag.id">{{flag.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <div *ngIf="selectedFlag && selectedFlag.dataType">
+      <small class="font-weight-bold">Description:</small><br>
+      <small>{{selectedFlag.description}}</small>
+    </div>
+  </div>
+
+  <div class="col-md">
+    <p class="font-weight-bold">Type od flag:</p>
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedType">
+      <mat-radio-button value="1" class="ml-1">Same for everyone</mat-radio-button>
+      <br>
+      <mat-radio-button value="2" class="ml-1">A/B testing</mat-radio-button>
+      <br>
+      <mat-radio-button value="3" class="ml-1">Just for one</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>
+
+<div class="row mt-4" *ngIf="app">
+  <div class="col-md">
+    <div *ngIf="selectedType === '1' && selectedFlag && selectedFlag.dataType">
+
+      <p class="">Input desired value:</p>
+
+      <div *ngIf="selectedFlag">
+        <div class="input-group mb-3 w-25" *ngIf="selectedFlag.dataType === 'INT'">
+          <input type="number" class="form-control" placeholder="Value" aria-label="Value">
+        </div>
+        <div class="input-group mb-3 w-25" *ngIf="selectedFlag.dataType === 'BOOL'">
+          <mat-form-field>
+            <mat-label>Choose a flag</mat-label>
+            <mat-select>
+              <mat-option [value]="true">True</mat-option>
+              <mat-option [value]="false">False</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="selectedType === '2'">A/B testing</div>
+
+    <div *ngIf="selectedType === '3'">Just for one</div>
+  </div>
+</div>
+
+<div class="row mt-4" *ngIf="app">
+  <div class="col">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div>

@@ -15,7 +15,7 @@ import {DialogYesnoComponent} from './components/dialog-yesno/dialog-yesno.compo
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSliderModule} from '@angular/material/slider';
-import {MatButton, MatButtonModule} from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {PortalModule} from '@angular/cdk/portal';
@@ -55,6 +55,9 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {A11yModule} from '@angular/cdk/a11y';
+import { FlagsDetailsComponent } from './components/flags/details/flags-details.component';
+import { CreateRuleComponent } from './components/rules/create-rule/create-rule.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,8 @@ import {A11yModule} from '@angular/cdk/a11y';
     ApplicationDetailsComponent,
     CreateComponent,
     DialogYesnoComponent,
+    FlagsDetailsComponent,
+    CreateRuleComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,6 +122,7 @@ import {A11yModule} from '@angular/cdk/a11y';
     MatTreeModule,
     PortalModule,
     ScrollingModule,
+    FormsModule,
 
   ],
   providers: [

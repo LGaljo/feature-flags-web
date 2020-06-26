@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Application} from '../../../models/Application';
 import {AppsService} from '../../../services/apps.service';
 import {Subscription} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FlagDto} from '../../../models/FlagDto';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogYesnoComponent} from '../../dialog-yesno/dialog-yesno.component';
@@ -22,8 +22,10 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private appsService: AppsService,
     private route: ActivatedRoute,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
     this.subscriptions.push(this.route.params.subscribe(params => {
@@ -59,10 +61,27 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
     ));
   }
 
-  openDetails(flag: FlagDto) {
-    console.log('Done sth');
-    this.dialog.open(DialogYesnoComponent, {
-      width: '400px'
+  openRemoveDialog(flag: FlagDto) {
+    const dialogRef = this.dialog.open(DialogYesnoComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // TODO remove flag
+      }
     });
+  }
+
+  openDetails(flag: FlagDto) {
+    const dialogRef = this.dialog.open(DialogYesnoComponent);
+  }
+
+  createRule() {
+    this.router.navigate([
+        '/applications/' + this.app.id + '/rule'],
+      {
+        state: {
+          app: this.app,
+          flags: this.flags
+        }
+      });
   }
 }
