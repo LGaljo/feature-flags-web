@@ -57,7 +57,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import {A11yModule} from '@angular/cdk/a11y';
 import { FlagsDetailsComponent } from './components/flags/details/flags-details.component';
 import { CreateRuleComponent } from './components/rules/create-rule/create-rule.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CreateFlagComponent } from './components/flags/create-flag/create-flag.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import {FormsModule} from '@angular/forms';
     DialogYesnoComponent,
     FlagsDetailsComponent,
     CreateRuleComponent,
+    CreateFlagComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +80,7 @@ import {FormsModule} from '@angular/forms';
     HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    FormsModule,
 
     A11yModule,
     ClipboardModule,
@@ -123,6 +126,7 @@ import {FormsModule} from '@angular/forms';
     PortalModule,
     ScrollingModule,
     FormsModule,
+    ReactiveFormsModule,
 
   ],
   providers: [

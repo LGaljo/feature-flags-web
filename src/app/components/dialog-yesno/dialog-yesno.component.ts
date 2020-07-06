@@ -9,7 +9,9 @@ import {MatDialogRef} from '@angular/material/dialog';
 export class DialogYesnoComponent implements OnDestroy {
   ret = false;
 
-  constructor(public dialogRef: MatDialogRef<DialogYesnoComponent>) {
+  constructor(
+    public dialogRef: MatDialogRef<DialogYesnoComponent>
+  ) {
   }
 
   onClose() {

@@ -61,7 +61,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
     ));
   }
 
-  openRemoveDialog(flag: FlagDto) {
+  removeFlagDialog(flag: FlagDto) {
     const dialogRef = this.dialog.open(DialogYesnoComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -70,17 +70,32 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  openDetails(flag: FlagDto) {
+  removeAppDialog() {
     const dialogRef = this.dialog.open(DialogYesnoComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // TODO remove app
+      }
+    });
   }
 
-  createRule() {
+  createRule(flag: FlagDto) {
     this.router.navigate([
-        '/applications/' + this.app.id + '/rule'],
+        '/applications/' + this.app.id + '/rule/' + flag.id],
       {
         state: {
           app: this.app,
-          flags: this.flags
+          flag
+        }
+      });
+  }
+
+  addFlag() {
+    this.router.navigate([
+        '/applications/' + this.app.id + '/flag'],
+      {
+        state: {
+          app: this.app
         }
       });
   }

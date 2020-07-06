@@ -22,4 +22,14 @@ export class AppsService extends BaseService<any> {
     })
       .pipe(catchError(BaseService.handleError));
   }
+
+  createFlag(appId: number, flag: FlagDto[]) {
+    const params = new HttpParams();
+    return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/${String(appId)}/flags`, flag,
+      {
+        headers: this.headers,
+        params
+      })
+      .pipe(catchError(BaseService.handleError));
+  }
 }

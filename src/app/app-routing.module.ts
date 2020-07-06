@@ -8,13 +8,15 @@ import {FrontPageComponent} from './components/front-page/front-page.component';
 import {ApplicationDetailsComponent} from './components/applications/details/application-details.component';
 import {FlagsDetailsComponent} from './components/flags/details/flags-details.component';
 import {CreateRuleComponent} from './components/rules/create-rule/create-rule.component';
+import {CreateFlagComponent} from './components/flags/create-flag/create-flag.component';
 
 const routes: Routes = [
   {path: '', component: FrontPageComponent},
   {path: 'applications', component: ApplicationsComponent},
   {path: 'applications/:id', component: ApplicationDetailsComponent},
   {path: 'applications/:aid/flags/:fid', component: FlagsDetailsComponent},
-  {path: 'applications/:aid/rule', component: CreateRuleComponent},
+  {path: 'applications/:aid/rule/:fid', component: CreateRuleComponent},
+  {path: 'applications/:aid/flag', component: CreateFlagComponent},
   {path: '**', component: ErrorComponent}
 ];
 

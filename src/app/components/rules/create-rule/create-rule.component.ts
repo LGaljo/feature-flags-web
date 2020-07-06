@@ -5,7 +5,8 @@ import {FlagDto} from '../../../models/FlagDto';
 import {Subscription} from 'rxjs';
 import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
-import {MatSelectChange} from '@angular/material/select';
+import {FlagsService} from '../../../services/flags.service';
+import {CreateRuleDto, RuleType} from '../../../models/dtos/CreateRuleDto';
 
 @Component({
   selector: 'app-create-rule',
@@ -15,30 +16,32 @@ import {MatSelectChange} from '@angular/material/select';
 export class CreateRuleComponent implements OnInit, OnDestroy {
 
   app: Application;
-  flags: FlagDto[];
-
-  rule: RuleDto;
-
-  selectedType = '1';
-  selectedFlag: FlagDto;
+  flag: FlagDto = new FlagDto();
+  rule: CreateRuleDto = new CreateRuleDto();
+  selectedType: RuleType = RuleType.SAME_FOR_EVERYONE;
 
   private subscriptions: Subscription[] = [];
 
   constructor(
     private appsService: AppsService,
+    private flagsService: FlagsService,
     private route: ActivatedRoute,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.rule = new RuleDto();
+    this.rule = new CreateRuleDto();
+    this.rule.value = 0;
+    this.rule.valueB = 0;
+    this.rule.shareOfA = 10;
     this.getData();
   }
 
   getData() {
+    let id;
     if (history.state.app) {
       this.app = history.state.app;
     } else {
-      let id;
       if (this.app && this.app.id) {
         id = this.app.id;
       } else {
@@ -54,18 +57,22 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       ));
-      if (history.state.flags) {
-        this.flags = history.state.flags;
-      } else {
-        this.subscriptions.push(this.appsService.getFlags(id).subscribe(
-          (val: FlagDto[]) => {
-            this.flags = val;
-          },
-          error => {
-            console.log(error);
-          }
-        ));
-      }
+    }
+
+    if (history.state.flag) {
+      this.flag = history.state.flag;
+    } else {
+      this.subscriptions.push(this.route.params.subscribe(params => {
+        id = params.fid;
+      }));
+      this.subscriptions.push(this.flagsService.getFlag(id).subscribe(
+        (val: FlagDto) => {
+          this.flag = val;
+        },
+        error => {
+          console.log(error);
+        }
+      ));
     }
   }
 
@@ -73,8 +80,23 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(value => value.unsubscribe());
   }
 
-  selectFlag($event: MatSelectChange) {
-    // ID starts with 1
-    this.selectedFlag = this.flags[$event.value - 1];
+  valid(): boolean {
+    return !(this.rule.expirationDate && this.rule.name !== '' && this.rule.description !== '');
+  }
+
+  createRule() {
+    this.rule.dataType = this.flag.dataType;
+    this.rule.ruleType = this.selectedType;
+
+    console.log(this.rule);
+
+    this.subscriptions.push(this.flagsService.createRule(this.rule, this.app.id, this.flag.id).subscribe(
+      (ret) => {
+        console.log(ret);
+      },
+      error => {
+        console.log(error);
+      }
+    ));
   }
 }

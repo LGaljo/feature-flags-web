@@ -1,24 +1,24 @@
 <div class="row">
-  <div class="col-3">
-    <button type="button" class="btn btn-outline-dark mr-1">Edit</button>
-    <button type="button" class="btn btn-outline-danger">Remove</button>
-  </div>
-  <div class="col-6 text-center">
+  <div class="col text-center">
     <h2 *ngIf="app">Details of {{app.name}}</h2>
     <h2 *ngIf="!app">Details</h2>
   </div>
-  <div class="col-3">
-    <button type="button" class="btn btn-outline-primary float-right" (click)="createRule()">Create rule</button>
-  </div>
+</div>
+
+<div class="row">
 </div>
 
 <div class="row" style="margin-top: 20px">
-  <div class="col">
+  <div class="col-6">
     <p *ngIf="!app">No data available</p>
     <div *ngIf="app">
       <b>Name: </b>{{app.name}} [{{app.id}}]<br>
       <b>Number of flags: </b>{{flags?.length}}
     </div>
+  </div>
+  <div class="col">
+    <button type="button" class="float-right btn btn-outline-danger" (click)="removeAppDialog()">Delete</button>
+    <button type="button" class="float-right btn btn-outline-dark mr-1" (click)="addFlag()">Add flag</button>
   </div>
 </div>
 
@@ -44,9 +44,12 @@
         <td>{{flag.dataType}}</td>
         <td>{{flag.defaultValue}}</td>
         <td>
+          <button class="btn btn-sm btn-outline-info mr-2"
+                  style="padding: .06rem .5rem;"
+                  (click)="createRule(flag)">Create rule</button>
           <button class="btn btn-sm btn-outline-danger"
                   style="padding: .06rem .5rem;"
-                  (click)="openRemoveDialog(flag)">Delete</button>
+                  (click)="removeFlagDialog(flag)">Delete</button>
         </td>
       </tr>
       </tbody>

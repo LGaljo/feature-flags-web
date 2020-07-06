@@ -9,63 +9,106 @@
 </div>
 
 <div class="row" *ngIf="app">
-  <div class="col-md">
-    <p class="font-weight-bold">Choose a flag:</p>
-    <mat-form-field>
-      <mat-select (selectionChange)="selectFlag($event)">
-        <mat-option *ngFor="let flag of flags" [value]="flag.id">{{flag.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br>
-    <div *ngIf="selectedFlag && selectedFlag.dataType">
-      <small class="font-weight-bold">Description:</small><br>
-      <small>{{selectedFlag.description}}</small>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="">Name</label><br>
+      <input [(ngModel)]="rule.name" type="text" class="form-control" placeholder="Name" aria-label="Name">
+    </div>
+    <div class="form-group">
+      <label class="">Description</label><br>
+      <input [(ngModel)]="rule.description" type="text" class="form-control" placeholder="Description"
+             aria-label="Description">
+    </div>
+    <div class="form-group">
+      <label for="expirationTime">Expiration time</label>
+      <input type="datetime-local" id="expirationTime" [(ngModel)]="rule.expirationDate" name="expirationTime"
+             class="form-control">
     </div>
   </div>
 
-  <div class="col-md">
-    <p class="font-weight-bold">Type od flag:</p>
-    <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedType">
-      <mat-radio-button value="1" class="ml-1">Same for everyone</mat-radio-button>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Type od flag</label>
       <br>
-      <mat-radio-button value="2" class="ml-1">A/B testing</mat-radio-button>
-      <br>
-      <mat-radio-button value="3" class="ml-1">Just for one</mat-radio-button>
-    </mat-radio-group>
+      <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedType">
+        <mat-radio-button value="SAME_FOR_EVERYONE" class="ml-1">Same for everyone</mat-radio-button>
+        <br>
+        <mat-radio-button value="AB_TESTING" class="ml-1">A/B testing</mat-radio-button>
+        <br>
+        <mat-radio-button value="USER_SPECIFIC" class="ml-1">Just for one</mat-radio-button>
+      </mat-radio-group>
+    </div>
   </div>
 </div>
 
-<div class="row mt-4" *ngIf="app">
-  <div class="col-md">
-    <div *ngIf="selectedType === '1' && selectedFlag && selectedFlag.dataType">
+<div class="row mt-2" *ngIf="app && selectedType === 'SAME_FOR_EVERYONE'">
+  <div class="col-6">
+    <label>Input desired value:</label>
+    <div *ngIf="flag">
+      <div class="input-group mb-3" *ngIf="flag.dataType === 'INT'">
+        <input [(ngModel)]="rule.value" type="number" class="form-control" placeholder="Value" aria-label="Value">
+      </div>
+      <div class="input-group mb-3" *ngIf="flag.dataType === 'BOOL'">
+        <mat-form-field>
+          <mat-label>Choose a flag</mat-label>
+          <mat-select [(ngModel)]="rule.value">
+            <mat-option [value]="true">True</mat-option>
+            <mat-option [value]="false">False</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
 
-      <p class="">Input desired value:</p>
+<div *ngIf="app && selectedType === 'AB_TESTING'">
+  <div class="row mt-2">
+    <div class="col-12 form-group">
+      <label for="formControlRange">Define shares</label>
+      <input type="range" [(ngModel)]="rule.shareOfA" class="form-control-range" step="1" id="formControlRange" min="0"
+             max="100" [defaultValue]="50">
 
-      <div *ngIf="selectedFlag">
-        <div class="input-group mb-3 w-25" *ngIf="selectedFlag.dataType === 'INT'">
-          <input type="number" class="form-control" placeholder="Value" aria-label="Value">
+      <div class="progress mt-2">
+        <div class="progress-bar bg-info" role="progressbar" [style.width]="rule.shareOfA + '%'"
+             [attr.aria-valuenow]="rule.shareOfA" aria-valuemin="0" aria-valuemax="100">{{rule.shareOfA}}%
         </div>
-        <div class="input-group mb-3 w-25" *ngIf="selectedFlag.dataType === 'BOOL'">
-          <mat-form-field>
-            <mat-label>Choose a flag</mat-label>
-            <mat-select>
-              <mat-option [value]="true">True</mat-option>
-              <mat-option [value]="false">False</mat-option>
-            </mat-select>
-          </mat-form-field>
+        <div class="progress-bar bg-warning" role="progressbar" [style.width]="(100 - rule.shareOfA) + '%'"
+             [attr.aria-valuenow]="100 - rule.shareOfA" aria-valuemin="0" aria-valuemax="100">{{100 - rule.shareOfA}}%
         </div>
       </div>
-
     </div>
+  </div>
 
-    <div *ngIf="selectedType === '2'">A/B testing</div>
+  <div class="row mt-2" *ngIf="flag.dataType === 'INT'">
+    <div class="col-6">
+      <div class="form-group">
+        <label for="formControlA">Define value for group A</label>
+        <input type="number" [(ngModel)]="rule.value" class="form-control" id="formControlA">
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label for="formControlB">Define value for group B</label>
+        <input type="number" [(ngModel)]="rule.valueB" class="form-control" id="formControlB">
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2" *ngIf="flag.dataType === 'BOOL'">
+    <div class="col-6">
+      <small>{{rule.shareOfA}}% of users are set to TRUE</small><br>
+      <small>{{100 - rule.shareOfA}}% of users are set to FALSE</small>
+    </div>
+  </div>
+</div>
 
-    <div *ngIf="selectedType === '3'">Just for one</div>
+<div class="row mt-2" *ngIf="app && selectedType=== 'USER_SPECIFIC'">
+  <div class="col-12">
+    Just for one - TODO
   </div>
 </div>
 
 <div class="row mt-4" *ngIf="app">
   <div class="col">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="valid()" (click)="createRule()">Submit</button>
   </div>
 </div>
