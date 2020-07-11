@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Application} from '../../../models/Application';
-import {RuleDto} from '../../../models/RuleDto';
 import {FlagDto} from '../../../models/FlagDto';
 import {Subscription} from 'rxjs';
 import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
 import {FlagsService} from '../../../services/flags.service';
 import {CreateRuleDto, RuleType} from '../../../models/dtos/CreateRuleDto';
+import {RulesService} from '../../../services/rules.service';
 
 @Component({
   selector: 'app-create-rule',
@@ -19,12 +19,14 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
   flag: FlagDto = new FlagDto();
   rule: CreateRuleDto = new CreateRuleDto();
   selectedType: RuleType = RuleType.SAME_FOR_EVERYONE;
+  date: Date;
 
   private subscriptions: Subscription[] = [];
 
   constructor(
     private appsService: AppsService,
     private flagsService: FlagsService,
+    private rulesService: RulesService,
     private route: ActivatedRoute,
   ) {
   }
@@ -81,16 +83,16 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
   }
 
   valid(): boolean {
-    return !(this.rule.expirationDate && this.rule.name !== '' && this.rule.description !== '');
+    return !(this.date && this.rule.name !== '' && this.rule.description !== '');
   }
 
   createRule() {
     this.rule.dataType = this.flag.dataType;
     this.rule.ruleType = this.selectedType;
+    this.rule.flagId = this.flag.id;
+    this.rule.expirationDate = new Date(this.date);
 
-    console.log(this.rule);
-
-    this.subscriptions.push(this.flagsService.createRule(this.rule, this.app.id, this.flag.id).subscribe(
+    this.subscriptions.push(this.rulesService.createRule(this.rule, this.app.id, this.flag.id).subscribe(
       (ret) => {
         console.log(ret);
       },

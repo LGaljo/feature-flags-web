@@ -24,17 +24,4 @@ export class FlagsService extends BaseService<any> {
     })
       .pipe(catchError(BaseService.handleError));
   }
-
-  createRule(rule: CreateRuleDto, appId: number, flagId: number) {
-    const params = new HttpParams();
-    params.set('appId', String(appId));
-    params.set('flagId', String(flagId));
-    return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/rule`,
-      rule,
-      {
-        headers: this.headers,
-        params
-      })
-      .pipe(catchError(BaseService.handleError));
-  }
 }
