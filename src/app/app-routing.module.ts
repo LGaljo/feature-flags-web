@@ -9,6 +9,7 @@ import {ApplicationDetailsComponent} from './components/applications/details/app
 import {FlagsDetailsComponent} from './components/flags/details/flags-details.component';
 import {CreateRuleComponent} from './components/rules/create-rule/create-rule.component';
 import {CreateFlagComponent} from './components/flags/create-flag/create-flag.component';
+import {InfoPageComponent} from './components/info-page/info-page.component';
 
 const routes: Routes = [
   {path: '', component: FrontPageComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'applications/:aid/flags/:fid', component: FlagsDetailsComponent},
   {path: 'applications/:aid/rule/:fid', component: CreateRuleComponent},
   {path: 'applications/:aid/flag', component: CreateFlagComponent},
+  {path: 'info', component: InfoPageComponent},
   {path: '**', component: ErrorComponent}
 ];
 

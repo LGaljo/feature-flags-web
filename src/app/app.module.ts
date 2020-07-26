@@ -59,6 +59,7 @@ import { FlagsDetailsComponent } from './components/flags/details/flags-details.
 import { CreateRuleComponent } from './components/rules/create-rule/create-rule.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CreateFlagComponent } from './components/flags/create-flag/create-flag.component';
+import { InfoPageComponent } from './components/info-page/info-page.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { CreateFlagComponent } from './components/flags/create-flag/create-flag.
     FlagsDetailsComponent,
     CreateRuleComponent,
     CreateFlagComponent,
+    InfoPageComponent,
   ],
   imports: [
     BrowserModule,
