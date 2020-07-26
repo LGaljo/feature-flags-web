@@ -11,15 +11,6 @@
 <div class="row" *ngIf="app">
   <div class="col-md-6">
     <div class="form-group">
-      <label class="">Name</label><br>
-      <input [(ngModel)]="rule.name" type="text" class="form-control" placeholder="Name" aria-label="Name">
-    </div>
-    <div class="form-group">
-      <label class="">Description</label><br>
-      <input [(ngModel)]="rule.description" type="text" class="form-control" placeholder="Description"
-             aria-label="Description">
-    </div>
-    <div class="form-group">
       <label for="expirationTime">Expiration time</label>
       <input type="datetime-local" id="expirationTime" [(ngModel)]="date" name="expirationTime"
              class="form-control">
@@ -28,7 +19,7 @@
 
   <div class="col-md-6">
     <div class="form-group">
-      <label>Type od flag</label>
+      <label>Type of rule</label>
       <br>
       <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedType">
         <mat-radio-button value="SAME_FOR_EVERYONE" class="ml-1">Same for everyone</mat-radio-button>
@@ -102,8 +93,33 @@
 </div>
 
 <div class="row mt-2" *ngIf="app && selectedType=== 'USER_SPECIFIC'">
-  <div class="col-12">
-    Just for one - TODO
+  <div class="col-6">
+    <label>Input desired value:</label>
+    <div *ngIf="flag">
+      <div class="input-group mb-3" *ngIf="flag.dataType === 'INT'">
+        <input [(ngModel)]="rule.value" type="number" class="form-control" placeholder="Value" aria-label="Value">
+      </div>
+      <div class="input-group mb-3" *ngIf="flag.dataType === 'BOOL'">
+        <mat-form-field>
+          <mat-label>Choose a flag</mat-label>
+          <mat-select [(ngModel)]="rule.value">
+            <mat-option [value]="1">True</mat-option>
+            <mat-option [value]="0">False</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <label>Select a user:</label>
+    <div class="input-group mb-3">
+      <mat-form-field>
+        <mat-label>Select a user</mat-label>
+        <mat-select [(ngModel)]="rule.user">
+          <mat-option *ngFor="let user of users" [value]="user.id">{{user.client}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
 </div>
 

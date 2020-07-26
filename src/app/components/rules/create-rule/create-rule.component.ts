@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {FlagsService} from '../../../services/flags.service';
 import {CreateRuleDto, RuleType} from '../../../models/dtos/CreateRuleDto';
 import {RulesService} from '../../../services/rules.service';
+import {EndUser} from '../../../models/EndUser';
 
 @Component({
   selector: 'app-create-rule',
@@ -20,6 +21,7 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
   rule: CreateRuleDto = new CreateRuleDto();
   selectedType: RuleType = RuleType.SAME_FOR_EVERYONE;
   date: Date;
+  users: EndUser[];
 
   private subscriptions: Subscription[] = [];
 
@@ -59,6 +61,14 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       ));
+      this.subscriptions.push(this.appsService.getUsersOfApp(id).subscribe(
+        (val: EndUser[]) => {
+          this.users = val;
+        },
+        error => {
+          console.log(error);
+        }
+      ));
     }
 
     if (history.state.flag) {
@@ -83,7 +93,7 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
   }
 
   valid(): boolean {
-    return !(this.date && this.rule.name !== '' && this.rule.description !== '');
+    return !this.date;
   }
 
   createRule() {

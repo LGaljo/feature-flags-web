@@ -7,9 +7,8 @@ export class CreateRuleDto {
   expirationDate: Date;
   value: number;
   valueB: number;
-  name: string;
-  description: string;
   shareOfA: number;
+  user: number;
 }
 
 export enum RuleType {
