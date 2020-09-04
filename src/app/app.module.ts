@@ -10,7 +10,6 @@ import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {environment} from '../environments/environment';
 import {HttpClientModule} from '@angular/common/http';
 import {ApplicationDetailsComponent} from './components/applications/details/application-details.component';
-import {CreateComponent} from './components/applications/create/create.component';
 import {DialogYesnoComponent} from './components/dialog-yesno/dialog-yesno.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -60,6 +59,7 @@ import { CreateRuleComponent } from './components/rules/create-rule/create-rule.
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CreateFlagComponent } from './components/flags/create-flag/create-flag.component';
 import { InfoPageComponent } from './components/info-page/info-page.component';
+import {CreateAppComponent} from './components/applications/create-app/create-app.component';
 
 @NgModule({
   declarations: [
@@ -69,12 +69,12 @@ import { InfoPageComponent } from './components/info-page/info-page.component';
     FrontPageComponent,
     ToolbarComponent,
     ApplicationDetailsComponent,
-    CreateComponent,
     DialogYesnoComponent,
     FlagsDetailsComponent,
     CreateRuleComponent,
     CreateFlagComponent,
     InfoPageComponent,
+    CreateAppComponent,
   ],
   imports: [
     BrowserModule,

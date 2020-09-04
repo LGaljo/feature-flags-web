@@ -8,6 +8,8 @@ import {AppsService} from '../../../services/apps.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataType} from '../../../models/Flag';
 import {MatSelectChange} from '@angular/material/select';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {ExceptionDto} from '../../../models/ExceptionDto';
 
 @Component({
   selector: 'app-create-flag',
@@ -29,6 +31,7 @@ export class CreateFlagComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private snackBar: MatSnackBar,
   ) {
   }
 
@@ -67,12 +70,16 @@ export class CreateFlagComponent implements OnInit, OnDestroy {
     const array = [];
     array.push(flag);
 
-    this.subscriptions.push(this.appsService.createFlag(this.id, array).subscribe(
+    this.subscriptions.push(this.flagsService.createFlags(this.id, array).subscribe(
       () => {
         this.goBack();
       },
-      error => {
-        console.log(error);
+      (error: ExceptionDto) => {
+        if (error.status === 1001) {
+          this.snackBar.open('DB Error: Flag name already exists. Choose a new name.');
+        } else {
+          console.log(error);
+        }
       }
     ));
   }

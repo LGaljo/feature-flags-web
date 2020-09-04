@@ -8,6 +8,7 @@ import {FlagsService} from '../../../services/flags.service';
 import {CreateRuleDto, RuleType} from '../../../models/dtos/CreateRuleDto';
 import {RulesService} from '../../../services/rules.service';
 import {EndUser} from '../../../models/EndUser';
+import {EndUsersService} from '../../../services/end-users.service';
 
 @Component({
   selector: 'app-create-rule',
@@ -28,6 +29,7 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
   constructor(
     private appsService: AppsService,
     private flagsService: FlagsService,
+    private endUserService: EndUsersService,
     private rulesService: RulesService,
     private route: ActivatedRoute,
   ) {
@@ -61,7 +63,7 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       ));
-      this.subscriptions.push(this.appsService.getUsersOfApp(id).subscribe(
+      this.subscriptions.push(this.endUserService.getUsersOfApp(id).subscribe(
         (val: EndUser[]) => {
           this.users = val;
         },

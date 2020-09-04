@@ -1,1 +1,41 @@
-<p>details works!</p>
+<div class="row">
+  <div class="col text-center">
+    <h1>Present rules for <b>{{flag?.name}}</b></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h2>Flag details</h2>
+    <div class="ml-1">
+      <p><b>Name:</b> {{flag?.name}}</p>
+      <p><b>Description:</b> {{flag?.description}}</p>
+      <p><b>Default value:</b> {{flag?.defaultValue}} ({{flag?.dataType}})</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h2>Table of rules</h2>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">User</th>
+        <th scope="col">Value</th>
+        <th scope="col">Expiration date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let rule of rules">
+        <td>{{rule.clientId}}</td>
+        <td>{{rule.value}}</td>
+        <td>{{rule.expirationDate | date:'medium' }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="rules?.length == 0">There are no rules</p>
+  </div>
+</div>

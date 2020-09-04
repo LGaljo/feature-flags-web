@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FlagDto} from '../../../models/FlagDto';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogYesnoComponent} from '../../dialog-yesno/dialog-yesno.component';
+import {FlagsService} from '../../../services/flags.service';
 
 @Component({
   selector: 'app-details',
@@ -21,6 +22,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private appsService: AppsService,
+    private flagsService: FlagsService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private router: Router
@@ -51,7 +53,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
       ));
     }
 
-    this.subscriptions.push(this.appsService.getFlags(this.app.id).subscribe(
+    this.subscriptions.push(this.flagsService.getFlags(this.app.id).subscribe(
       (val: FlagDto[]) => {
         this.flags = val;
       },

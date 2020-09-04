@@ -1,7 +1,8 @@
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment.prod';
 import {Observable, pipe, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {ExceptionDto} from '../models/ExceptionDto';
 
 export class BaseService<Type> {
 
@@ -20,6 +21,8 @@ export class BaseService<Type> {
   static handleError(error: HttpErrorResponse): Observable<any> {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
+    } else if (error.error.status && error.error.message) {
+      return throwError(error.error);
     } else {
       console.error(`Backend returned code ${error.status}`);
       console.log(error.error);

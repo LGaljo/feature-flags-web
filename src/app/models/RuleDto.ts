@@ -7,4 +7,6 @@ export class RuleDto extends BaseEntity {
   name: string;
   description: string;
   dataType: DataType;
+  clientId: string;
+  expirationDate;
 }

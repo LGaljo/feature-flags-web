@@ -10,10 +10,12 @@ import {FlagsDetailsComponent} from './components/flags/details/flags-details.co
 import {CreateRuleComponent} from './components/rules/create-rule/create-rule.component';
 import {CreateFlagComponent} from './components/flags/create-flag/create-flag.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
+import {CreateAppComponent} from './components/applications/create-app/create-app.component';
 
 const routes: Routes = [
   {path: '', component: FrontPageComponent},
   {path: 'applications', component: ApplicationsComponent},
+  {path: 'applications/new', component: CreateAppComponent},
   {path: 'applications/:id', component: ApplicationDetailsComponent},
   {path: 'applications/:aid/flags/:fid', component: FlagsDetailsComponent},
   {path: 'applications/:aid/rule/:fid', component: CreateRuleComponent},

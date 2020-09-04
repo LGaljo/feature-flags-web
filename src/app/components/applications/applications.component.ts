@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppsService} from '../../services/apps.service';
 import {Application} from '../../models/Application';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-applications',
@@ -15,8 +16,9 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private appsService: AppsService
-  ) { }
+    private appsService: AppsService,
+    private router: Router
+) { }
 
   ngOnInit(): void {
     this.subscriptions.push(this.appsService.getAll().subscribe(
@@ -31,5 +33,13 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(value => value.unsubscribe());
+  }
+
+  createApp() {
+    this.router.navigate(['/applications/new']);
+  }
+
+  detailsApp(id: number) {
+    this.router.navigate(['/applications/' + id]);
   }
 }
