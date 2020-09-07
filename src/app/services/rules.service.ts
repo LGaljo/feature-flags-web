@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {BaseService} from './base.service';
 import {CreateRuleDto} from '../models/dtos/CreateRuleDto';
@@ -17,8 +17,8 @@ export class RulesService extends BaseService<any> {
 
   createRule(rule: CreateRuleDto, appId: number, flagId: number) {
     const params = new HttpParams()
-      .set('appId', String(appId))
-      .set('flagId', String(flagId));
+      .set('app_id', String(appId))
+      .set('flag_id', String(flagId));
     return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}`,
       rule,
       {
@@ -30,8 +30,7 @@ export class RulesService extends BaseService<any> {
 
   getRulesForFlag(appId: number, flagId: number) {
     const params = new HttpParams()
-      .set('appId', String(appId))
-      .set('flagId', String(flagId));
+      .set('flag_id', String(flagId));
     return this.http.get<RuleDto[]>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/flag`,
       {
         headers: this.headers,
