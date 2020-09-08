@@ -45,33 +45,24 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
 
   getData() {
     let id;
-    if (history.state.app) {
-      this.app = history.state.app;
-    } else {
-      if (this.app && this.app.id) {
-        id = this.app.id;
-      } else {
-        this.subscriptions.push(this.route.params.subscribe(params => {
-          id = params.aid;
-        }));
-      }
-      this.subscriptions.push(this.appsService.get(id).subscribe(
+    this.subscriptions.push(this.route.params.subscribe(params => {
+      this.subscriptions.push(this.appsService.get(params.aid).subscribe(
         (val: Application) => {
           this.app = val;
+          this.subscriptions.push(this.endUserService.getUsersOfApp(this.app.id).subscribe(
+            (val2: EndUser[]) => {
+              this.users = val2;
+            },
+            error => {
+              console.log(error);
+            }
+          ));
         },
         error => {
           console.log(error);
         }
       ));
-      this.subscriptions.push(this.endUserService.getUsersOfApp(id).subscribe(
-        (val: EndUser[]) => {
-          this.users = val;
-        },
-        error => {
-          console.log(error);
-        }
-      ));
-    }
+    }));
 
     if (history.state.flag) {
       this.flag = history.state.flag;
@@ -101,7 +92,6 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
   createRule() {
     this.rule.dataType = this.flag.dataType;
     this.rule.ruleType = this.selectedType;
-    this.rule.flagId = this.flag.id;
     this.rule.expirationDate = new Date(this.date);
 
     this.subscriptions.push(this.rulesService.createRule(this.rule, this.app.id, this.flag.id).subscribe(

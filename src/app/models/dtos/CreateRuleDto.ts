@@ -1,7 +1,6 @@
 import {DataType} from '../Flag';
 
 export class CreateRuleDto {
-  flagId: number;
   ruleType: RuleType;
   dataType: DataType;
   expirationDate: Date;

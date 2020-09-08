@@ -3,8 +3,8 @@ import {BaseService} from './base.service';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {FlagDto} from '../models/FlagDto';
 import {catchError} from 'rxjs/operators';
-import {RuleDto} from '../models/RuleDto';
-import {CreateRuleDto} from '../models/dtos/CreateRuleDto';
+import {Observable} from 'rxjs';
+import {Application} from '../models/Application';
 
 @Injectable({
   providedIn: 'root'
@@ -27,16 +27,30 @@ export class FlagsService extends BaseService<any> {
 
   getFlags(id: number) {
     const params = new HttpParams().set('app_id', String(id));
-    return this.http.get<FlagDto[]>(`${this.actionUrl}${this.ENTITY_ENDPOINT}`, {
-      headers: this.headers,
-      params
-    })
+    return this.http.get<FlagDto[]>(`${this.actionUrl}${this.ENTITY_ENDPOINT}`,
+      {
+        headers: this.headers,
+        params
+      })
       .pipe(catchError(BaseService.handleError));
   }
 
   createFlags(appId: number, flags: FlagDto[]) {
     const params = new HttpParams();
     return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/${String(appId)}`, flags,
+      {
+        headers: this.headers,
+        params
+      })
+      .pipe(catchError(BaseService.handleError));
+  }
+
+  removeFlag(flagId: number): Observable<any> {
+    const params = new HttpParams();
+    return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/delete`,
+      {
+        id: flagId
+      },
       {
         headers: this.headers,
         params

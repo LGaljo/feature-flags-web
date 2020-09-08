@@ -23,4 +23,14 @@ export class AppsService extends BaseService<any> {
     })
       .pipe(catchError(BaseService.handleError));
   }
+
+  removeApp(id: number): Observable<any> {
+    const params = new HttpParams();
+    return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/delete`, {id},
+      {
+        headers: this.headers,
+        params
+      })
+      .pipe(catchError(BaseService.handleError));
+  }
 }

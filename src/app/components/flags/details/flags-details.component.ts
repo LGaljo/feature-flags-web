@@ -5,6 +5,8 @@ import {Subscription} from 'rxjs';
 import {RulesService} from '../../../services/rules.service';
 import {FlagsService} from '../../../services/flags.service';
 import {FlagDto} from '../../../models/FlagDto';
+import {DialogYesnoComponent} from '../../dialog-yesno/dialog-yesno.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-details',
@@ -23,6 +25,8 @@ export class FlagsDetailsComponent implements OnInit, OnDestroy {
     private flagsService: FlagsService,
     private rulesService: RulesService,
     private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private router: Router
   ) {
   }
 
@@ -44,4 +48,15 @@ export class FlagsDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(value => value.unsubscribe());
   }
 
+  removeFlagDialog() {
+    const dialogRef = this.dialog.open(DialogYesnoComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.subscriptions.push(this.flagsService.removeFlag(this.flagId).subscribe(rs => {
+          console.log(rs.status);
+        }));
+        this.router.navigate(['/applications/' + this.appId]);
+      }
+    });
+  }
 }

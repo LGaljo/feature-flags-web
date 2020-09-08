@@ -76,7 +76,10 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(DialogYesnoComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // TODO remove app
+        this.subscriptions.push(this.appsService.removeApp(this.app.id).subscribe(rs => {
+          console.log(rs);
+        }));
+        this.router.navigate(['/applications']);
       }
     });
   }
