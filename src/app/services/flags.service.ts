@@ -45,12 +45,9 @@ export class FlagsService extends BaseService<any> {
       .pipe(catchError(BaseService.handleError));
   }
 
-  removeFlag(flagId: number): Observable<any> {
+  removeFlag(id: number): Observable<any> {
     const params = new HttpParams();
-    return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/delete`,
-      {
-        id: flagId
-      },
+    return this.http.delete<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/` + String(id),
       {
         headers: this.headers,
         params

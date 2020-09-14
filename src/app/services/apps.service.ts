@@ -26,7 +26,7 @@ export class AppsService extends BaseService<any> {
 
   removeApp(id: number): Observable<any> {
     const params = new HttpParams();
-    return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/delete`, {id},
+    return this.http.delete<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/` + String(id),
       {
         headers: this.headers,
         params
