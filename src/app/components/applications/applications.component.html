@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-2">
-    <button type="button" (click)="createApp()" class="btn btn-light">Add app</button>
+    <button type="button" [routerLink]='"/applications/new"' class="btn btn-light">Add app</button>
   </div>
 
   <div class="col-8 text-center">
@@ -11,7 +11,7 @@
 <div class="row">
   <div class="col text-center">
     <div *ngIf="apps.length > 0" class="list-group">
-      <a (click)="detailsApp(element.id)" *ngFor="let element of apps" class="list-group-item list-group-item-action">{{element.name}}</a>
+      <a [routerLink]='"/applications/" + element.id' *ngFor="let element of apps" class="list-group-item list-group-item-action">{{element.name}}</a>
     </div>
 
     <p *ngIf="apps.length == 0">There are no apps</p>

@@ -10,6 +10,7 @@ import {DataType} from '../../../models/Flag';
 import {MatSelectChange} from '@angular/material/select';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ExceptionDto} from '../../../models/ExceptionDto';
+import {CreateFlagDto} from '../../../models/dtos/CreateFlagDto';
 
 @Component({
   selector: 'app-create-flag',
@@ -70,7 +71,12 @@ export class CreateFlagComponent implements OnInit, OnDestroy {
     const array = [];
     array.push(flag);
 
-    this.subscriptions.push(this.flagsService.createFlags(this.id, array).subscribe(
+    const data: CreateFlagDto = {
+      appId: this.id,
+      flags: array
+    };
+
+    this.subscriptions.push(this.flagsService.createFlags(data).subscribe(
       () => {
         this.goBack();
       },

@@ -34,12 +34,4 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(value => value.unsubscribe());
   }
-
-  createApp() {
-    this.router.navigate(['/applications/new']);
-  }
-
-  detailsApp(id: number) {
-    this.router.navigate(['/applications/' + id]);
-  }
 }

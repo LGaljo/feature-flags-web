@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary toolbar">
-  <a class="navbar-brand" (click)="goToHome()">
+  <a class="navbar-brand" routerLink="/">
     <img
       width="40"
       alt="Angular Logo"
@@ -14,8 +14,8 @@
 
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/"></a>
-      <a class="nav-item nav-link" href="/applications">Applications</a>
+      <a class="nav-item nav-link" routerLink="/applications">Applications</a>
+      <a class="nav-item nav-link" routerLink="/admin">Admin</a>
     </div>
   </div>
 </nav>

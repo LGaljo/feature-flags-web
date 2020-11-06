@@ -16,12 +16,4 @@ export class FrontPageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  gotToApps() {
-    this.router.navigate(['/applications']);
-  }
-
-  gotToInfo() {
-    this.router.navigate(['/info']);
-  }
 }
