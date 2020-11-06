@@ -60,6 +60,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CreateFlagComponent } from './components/flags/create-flag/create-flag.component';
 import { InfoPageComponent } from './components/info-page/info-page.component';
 import {CreateAppComponent} from './components/applications/create-app/create-app.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import {CreateAppComponent} from './components/applications/create-app/create-ap
     CreateFlagComponent,
     InfoPageComponent,
     CreateAppComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

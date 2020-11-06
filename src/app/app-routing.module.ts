@@ -11,9 +11,11 @@ import {CreateRuleComponent} from './components/rules/create-rule/create-rule.co
 import {CreateFlagComponent} from './components/flags/create-flag/create-flag.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {CreateAppComponent} from './components/applications/create-app/create-app.component';
+import {AdminComponent} from './components/admin/admin.component';
 
 const routes: Routes = [
   {path: '', component: FrontPageComponent},
+  {path: 'admin', component: AdminComponent},
   {path: 'applications', component: ApplicationsComponent},
   {path: 'applications/new', component: CreateAppComponent},
   {path: 'applications/:id', component: ApplicationDetailsComponent},

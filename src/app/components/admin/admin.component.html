@@ -1,0 +1,28 @@
+<div class="row text-center">
+  <div class="col-sm">
+    <h2>Admin panel</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md">
+    <div>
+      <button type="button" (click)="clearDatabase()" class="btn btn-danger">Clear database</button>
+      <span class="ml-1" [hidden]="hidden">{{step}}/5</span>
+    </div>
+    <div>
+      <small>Clearing database will remove all data from the app. Five click to confirm.</small>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col-md">
+    <div>
+      <button type="button" (click)="seedData()" class="btn btn-danger">Seed data</button>
+    </div>
+    <div>
+      <small>Seeding data will insert sample data to database.</small>
+    </div>
+  </div>
+</div>
