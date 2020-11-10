@@ -2,7 +2,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/c
 import {environment} from '../../environments/environment.prod';
 import {Observable, pipe, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {ExceptionDto} from '../models/ExceptionDto';
+import {ExceptionDto} from '../models/dtos/ExceptionDto';
 
 export class BaseService<Type> {
 

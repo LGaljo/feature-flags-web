@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<div class="row" style="margin-top: 20px">
+<div class="row mt-3">
   <div class="col-6">
     <p *ngIf="!app">No data available</p>
     <div *ngIf="app">
@@ -14,15 +14,46 @@
     </div>
   </div>
   <div class="col">
-    <button type="button" class="float-right btn btn-outline-danger" (click)="removeAppDialog()">Delete</button>
-    <button type="button" class="float-right btn btn-outline-dark mr-1" (click)="addFlag()">Add flag</button>
+    <button type="button" class="float-right btn btn-outline-dark ml-1" (click)="addFlag()">Create flag</button>
+    <button type="button" class="float-right btn btn-outline-danger" (click)="removeAppDialog()">Delete app</button>
   </div>
 </div>
 
-<div class="row" style="margin-top: 20px" *ngIf="app">
+<div class="row mt-2">
+  <div class="col">
+    <h3>Active rollouts</h3>
+    <table class="table table-hover" *ngIf="rollouts.length !== 0">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Flag</th>
+        <th scope="col">Started</th>
+        <th scope="col"># rollouts</th>
+        <th scope="col">Interval</th>
+        <th scope="col">Completion</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let rollout of rollouts; index as i" routerLink="/applications/{{app.id}}/rule/{{rollout.flag.id}}/rollout/{{rollout.id}}">
+        <th>{{rollout.id}}</th>
+        <td>{{rollout.flag.name}}</td>
+        <td>{{rollout.createdAt | date: "dd. MM. yyyy HH:mm:ss"}}</td>
+        <td>{{rollout.numOfSteps}}</td>
+        <td>{{rollout.interval}} {{rollout.timeUnit}}</td>
+        <td>{{rollout.completed}}%</td>
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="rollouts.length === 0">
+      No active rollouts for this application
+    </div>
+  </div>
+</div>
+
+<div class="row mt-2">
   <div class="col">
     <h3>Flags</h3>
-    <table class="table table-hover">
+    <table class="table table-hover" *ngIf="flags.length !== 0">
       <thead>
       <tr>
         <th scope="col">#</th>
@@ -48,5 +79,8 @@
       </tr>
       </tbody>
     </table>
+    <div *ngIf="flags.length === 0">
+      No flags for this application
+    </div>
   </div>
 </div>

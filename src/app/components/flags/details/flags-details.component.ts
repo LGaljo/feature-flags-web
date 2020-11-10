@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {RuleDto} from '../../../models/RuleDto';
+import {RuleDto} from '../../../models/dtos/RuleDto';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {RulesService} from '../../../services/rules.service';
 import {FlagsService} from '../../../services/flags.service';
-import {FlagDto} from '../../../models/FlagDto';
+import {FlagDto} from '../../../models/dtos/FlagDto';
 import {DialogYesnoComponent} from '../../dialog-yesno/dialog-yesno.component';
 import {MatDialog} from '@angular/material/dialog';
 

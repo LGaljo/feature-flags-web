@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from './base.service';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {FlagDto} from '../models/FlagDto';
+import {FlagDto} from '../models/dtos/FlagDto';
 import {catchError} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {Application} from '../models/Application';
 import {CreateFlagDto} from '../models/dtos/CreateFlagDto';
 
 @Injectable({
@@ -38,7 +37,7 @@ export class FlagsService extends BaseService<any> {
 
   createFlags(data: CreateFlagDto) {
     const params = new HttpParams();
-    return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}}`, data,
+    return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}`, data,
       {
         headers: this.headers,
         params

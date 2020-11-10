@@ -9,122 +9,43 @@
 </div>
 
 <div class="row" *ngIf="app">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="expirationTime">Expiration time</label>
-      <input type="datetime-local" id="expirationTime" [(ngModel)]="date" name="expirationTime"
-             class="form-control">
-    </div>
-  </div>
-
-  <div class="col-md-6">
+  <div class="col">
     <div class="form-group">
       <label>Type of rule</label>
       <br>
-      <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedType">
+      <mat-radio-group aria-label="Select an option" [(ngModel)]="rule.ruleType">
         <mat-radio-button value="SAME_FOR_EVERYONE" class="ml-1">Same for everyone</mat-radio-button>
         <br>
         <mat-radio-button value="AB_TESTING" class="ml-1">A/B testing</mat-radio-button>
         <br>
         <mat-radio-button value="USER_SPECIFIC" class="ml-1">Just for one</mat-radio-button>
+        <br>
+        <mat-radio-button value="GRADUAL_ROLLOUT" class="ml-1">Gradual rollout</mat-radio-button>
       </mat-radio-group>
     </div>
   </div>
 </div>
 
-<div class="row mt-2" *ngIf="app && selectedType === 'SAME_FOR_EVERYONE'">
-  <div class="col-6">
-    <label>Input desired value:</label>
-    <div *ngIf="flag">
-      <div class="input-group mb-3" *ngIf="flag.dataType === 'INT'">
-        <input [(ngModel)]="rule.value" type="number" class="form-control" placeholder="Value" aria-label="Value">
-      </div>
-      <div class="input-group mb-3" *ngIf="flag.dataType === 'BOOL'">
-        <mat-form-field>
-          <mat-label>Choose a flag</mat-label>
-          <mat-select [(ngModel)]="rule.value">
-            <mat-option [value]="1">True</mat-option>
-            <mat-option [value]="0">False</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="app && selectedType === 'AB_TESTING'">
-  <div class="row mt-2">
-    <div class="col-12 form-group">
-      <label for="formControlRange">Define shares</label>
-      <input type="range" [(ngModel)]="rule.shareOfA" class="form-control-range" step="1" id="formControlRange" min="0"
-             max="100" [defaultValue]="50">
-
-      <div class="progress mt-2">
-        <div class="progress-bar bg-info" role="progressbar" [style.width]="rule.shareOfA + '%'"
-             [attr.aria-valuenow]="rule.shareOfA" aria-valuemin="0" aria-valuemax="100">{{rule.shareOfA}}%
-        </div>
-        <div class="progress-bar bg-warning" role="progressbar" [style.width]="(100 - rule.shareOfA) + '%'"
-             [attr.aria-valuenow]="100 - rule.shareOfA" aria-valuemin="0" aria-valuemax="100">{{100 - rule.shareOfA}}%
-        </div>
-      </div>
-    </div>
+<div *ngIf="app">
+  <div *ngIf="rule.ruleType === 'SAME_FOR_EVERYONE'">
+    <app-create-sae-rule [app]="app" [rule]="rule" [flag]="flag"></app-create-sae-rule>
   </div>
 
-  <div class="row mt-2" *ngIf="flag.dataType === 'INT'">
-    <div class="col-6">
-      <div class="form-group">
-        <label for="formControlA">Define value for group A</label>
-        <input type="number" [(ngModel)]="rule.value" class="form-control" id="formControlA">
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="form-group">
-        <label for="formControlB">Define value for group B</label>
-        <input type="number" [(ngModel)]="rule.valueB" class="form-control" id="formControlB">
-      </div>
-    </div>
+  <div *ngIf="rule.ruleType === 'AB_TESTING'">
+    <app-create-abt-rule [app]="app" [rule]="rule" [flag]="flag"></app-create-abt-rule>
   </div>
-  <div class="row mt-2" *ngIf="flag.dataType === 'BOOL'">
-    <div class="col-6">
-      <small>{{rule.shareOfA}}% of users are set to TRUE</small><br>
-      <small>{{100 - rule.shareOfA}}% of users are set to FALSE</small>
-    </div>
-  </div>
-</div>
 
-<div class="row mt-2" *ngIf="app && selectedType=== 'USER_SPECIFIC'">
-  <div class="col-6">
-    <label>Input desired value:</label>
-    <div *ngIf="flag">
-      <div class="input-group mb-3" *ngIf="flag.dataType === 'INT'">
-        <input [(ngModel)]="rule.value" type="number" class="form-control" placeholder="Value" aria-label="Value">
-      </div>
-      <div class="input-group mb-3" *ngIf="flag.dataType === 'BOOL'">
-        <mat-form-field>
-          <mat-label>Choose a flag</mat-label>
-          <mat-select [(ngModel)]="rule.value">
-            <mat-option [value]="1">True</mat-option>
-            <mat-option [value]="0">False</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
+  <div *ngIf="rule.ruleType === 'USER_SPECIFIC'">
+    <app-create-jfo-rule [app]="app" [rule]="rule" [flag]="flag"></app-create-jfo-rule>
   </div>
-  <div class="col-6">
-    <label>Select a user:</label>
-    <div class="input-group mb-3">
-      <mat-form-field>
-        <mat-label>Select a user</mat-label>
-        <mat-select [(ngModel)]="rule.user">
-          <mat-option *ngFor="let user of users" [value]="user.id">{{user.client}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+
+  <div *ngIf="rule.ruleType === 'GRADUAL_ROLLOUT'">
+    <app-create-gro-rule [app]="app" [rule]="rule" [flag]="flag" [rollout]="rollout"></app-create-gro-rule>
   </div>
 </div>
 
 <div class="row mt-4" *ngIf="app">
   <div class="col">
-    <button type="submit" class="btn btn-primary" [disabled]="valid()" (click)="createRule()">Submit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!valid()" (click)="createRule()">Submit</button>
   </div>
 </div>

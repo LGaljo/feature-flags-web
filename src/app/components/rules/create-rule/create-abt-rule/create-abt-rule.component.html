@@ -1,0 +1,52 @@
+<div class="row mt-2">
+  <div class="col-12 form-group">
+
+    <div class="progress mt-2">
+      <div *ngFor="let item of rule.shares; index as i;" class="progress-bar" role="progressbar"
+           [style.width]="item.share + '%'"
+           [attr.aria-valuenow]="item.share" [ngClass]="classes[i % 7]" aria-valuemin="0"
+           aria-valuemax="100"
+      >
+        {{item.share}}%
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-2" *ngIf="flag.dataType === 'BOOL'">
+  <div class="col">
+    <label for="formControlRange">Define shares</label>
+    <input type="range" [(ngModel)]="rule.shares[0].share" class="form-control-range" step="1" id="formControlRange"
+           min="0" max="100" [defaultValue]="rule.shares[0].share" (change)="changeValueBOOL()">
+    <small>{{rule.shares[0].share}}% of users are set to TRUE</small><br>
+    <small>{{rule.shares[1].share}}% of users are set to FALSE</small>
+  </div>
+</div>
+
+<div *ngIf="flag.dataType === 'INT'">
+  <div class="row mt-2">
+    <div class="col">
+      <div class="form-group" *ngFor="let item of rule.shares; index as i;">
+        <div class="row">
+          <div class="col-5">
+            <label>Define share for {{i + 1}}. group</label>
+            <input type="number" [(ngModel)]="item.share" class="form-control">
+          </div>
+          <div class="col-5">
+            <label>Define value for {{i + 1}}. group</label>
+            <input type="number" [(ngModel)]="item.value" class="form-control">
+          </div>
+          <div class="col-2">
+            <button class="btn btn-sm btn-danger mt-3" (click)="removeGroup(i)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <button class="btn btn-primary float-right" (click)="addGroup()">Add group</button>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Application} from '../../../models/Application';
-import {FlagDto} from '../../../models/FlagDto';
+import {FlagDto} from '../../../models/dtos/FlagDto';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FlagsService} from '../../../services/flags.service';
@@ -9,7 +9,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataType} from '../../../models/Flag';
 import {MatSelectChange} from '@angular/material/select';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ExceptionDto} from '../../../models/ExceptionDto';
+import {ExceptionDto} from '../../../models/dtos/ExceptionDto';
 import {CreateFlagDto} from '../../../models/dtos/CreateFlagDto';
 
 @Component({

@@ -12,6 +12,7 @@ import {CreateFlagComponent} from './components/flags/create-flag/create-flag.co
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {CreateAppComponent} from './components/applications/create-app/create-app.component';
 import {AdminComponent} from './components/admin/admin.component';
+import {DetailsRolloutComponent} from './components/rules/details-rollout/details-rollout.component';
 
 const routes: Routes = [
   {path: '', component: FrontPageComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'applications/:id', component: ApplicationDetailsComponent},
   {path: 'applications/:aid/flags/:fid', component: FlagsDetailsComponent},
   {path: 'applications/:aid/rule/:fid', component: CreateRuleComponent},
+  {path: 'applications/:aid/rule/:fid/rollout/:rid', component: DetailsRolloutComponent},
   {path: 'applications/:aid/flag', component: CreateFlagComponent},
   {path: 'info', component: InfoPageComponent},
   {path: '**', component: ErrorComponent}

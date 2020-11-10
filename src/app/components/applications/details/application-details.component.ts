@@ -3,10 +3,12 @@ import {Application} from '../../../models/Application';
 import {AppsService} from '../../../services/apps.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FlagDto} from '../../../models/FlagDto';
+import {FlagDto} from '../../../models/dtos/FlagDto';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogYesnoComponent} from '../../dialog-yesno/dialog-yesno.component';
 import {FlagsService} from '../../../services/flags.service';
+import {RolloutDto} from '../../../models/dtos/RolloutDto';
+import {RulesService} from '../../../services/rules.service';
 
 @Component({
   selector: 'app-details',
@@ -17,16 +19,20 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
 
   @Input() app: Application;
   flags: FlagDto[];
+  rollouts: RolloutDto[];
 
   private subscriptions: Subscription[] = [];
 
   constructor(
     private appsService: AppsService,
     private flagsService: FlagsService,
+    private rulesService: RulesService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private router: Router
   ) {
+    this.flags = [];
+    this.rollouts = [];
   }
 
   ngOnInit(): void {
@@ -61,15 +67,15 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     ));
-  }
 
-  removeFlagDialog(flag: FlagDto) {
-    const dialogRef = this.dialog.open(DialogYesnoComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // TODO remove flag
+    this.subscriptions.push(this.rulesService.getUnfinishedRollouts(this.app.id).subscribe(
+      (val: RolloutDto[]) => {
+        this.rollouts = val;
+      },
+      error => {
+        console.log(error);
       }
-    });
+    ));
   }
 
   removeAppDialog() {
@@ -103,5 +109,9 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
           app: this.app
         }
       });
+  }
+
+  abortRollout(rollout: RolloutDto) {
+    return;
   }
 }

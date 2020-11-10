@@ -1,4 +1,4 @@
-import {DataType} from './Flag';
+import {DataType} from '../Flag';
 
 export class FlagDto {
   id: number;

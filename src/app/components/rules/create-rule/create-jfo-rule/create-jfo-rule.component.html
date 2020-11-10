@@ -1,0 +1,32 @@
+<div class="row mt-2">
+  <div class="col-6">
+    <label>Input desired value:</label>
+
+    <div class="input-group mb-3" *ngIf="flag.dataType === 'INT'">
+      <input [(ngModel)]="rule.shares[0].value" type="number" class="form-control" placeholder="Value" aria-label="Value">
+    </div>
+
+    <div class="input-group mb-3" *ngIf="flag.dataType === 'BOOL'">
+      <mat-form-field>
+        <mat-label>Choose a flag</mat-label>
+        <mat-select [(ngModel)]="rule.shares[0].value">
+          <mat-option [value]="1">True</mat-option>
+          <mat-option [value]="0">False</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="col-6">
+    <label>Select a user:</label>
+    <div class="input-group mb-3">
+      <mat-form-field>
+        <mat-label>Select a user</mat-label>
+        <mat-select [(ngModel)]="rule.user">
+          <mat-option *ngFor="let user of users" [value]="user.id">{{user.client}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

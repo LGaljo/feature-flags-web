@@ -1,0 +1,49 @@
+<div class="row mt-2">
+  <div class="col">
+    <p><b>1.</b> Select interval between changes</p>
+    <mat-form-field>
+      <mat-label>Amount of time</mat-label>
+      <input [(ngModel)]="rollout.interval" matInput type="number" placeholder="Interval"
+             aria-label="Interval">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select [(ngModel)]="rollout.timeUnit">
+        <mat-option value="SECONDS">Seconds</mat-option>
+        <mat-option value="MINUTES">Minutes</mat-option>
+        <mat-option value="HOURS">Hours</mat-option>
+        <mat-option value="DAYS">Days</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col">
+    <p><b>2.</b> Write desired number of steps</p>
+    <mat-form-field>
+      <mat-label>Number of steps</mat-label>
+      <input matInput [(ngModel)]="rollout.numOfSteps" type="number" placeholder="Number of steps"
+             aria-label="Steps">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col">
+    <p><b>3.</b> Write desired value</p>
+    <mat-form-field *ngIf="flag.dataType === 'INT'">
+      <mat-label>New value</mat-label>
+      <input matInput [(ngModel)]="rollout.newValue" type="number" placeholder="Value"
+             aria-label="Value">
+    </mat-form-field>
+    <mat-form-field *ngIf="flag.dataType === 'BOOL'">
+      <mat-label>Chose value</mat-label>
+      <mat-select [(ngModel)]="rollout.newValue">
+        <mat-option [value]="1">True</mat-option>
+        <mat-option [value]="0">False</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

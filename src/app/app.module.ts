@@ -61,6 +61,11 @@ import { CreateFlagComponent } from './components/flags/create-flag/create-flag.
 import { InfoPageComponent } from './components/info-page/info-page.component';
 import {CreateAppComponent} from './components/applications/create-app/create-app.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { DetailsRolloutComponent } from './components/rules/details-rollout/details-rollout.component';
+import { CreateSAERuleComponent } from './components/rules/create-rule/create-sae-rule/create-sae-rule.component';
+import { CreateABTRuleComponent } from './components/rules/create-rule/create-abt-rule/create-abt-rule.component';
+import { CreateJFORuleComponent } from './components/rules/create-rule/create-jfo-rule/create-jfo-rule.component';
+import { CreateGRORuleComponent } from './components/rules/create-rule/create-gro-rule/create-gro-rule.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +82,11 @@ import { AdminComponent } from './components/admin/admin.component';
     InfoPageComponent,
     CreateAppComponent,
     AdminComponent,
+    DetailsRolloutComponent,
+    CreateSAERuleComponent,
+    CreateABTRuleComponent,
+    CreateJFORuleComponent,
+    CreateGRORuleComponent,
   ],
   imports: [
     BrowserModule,
