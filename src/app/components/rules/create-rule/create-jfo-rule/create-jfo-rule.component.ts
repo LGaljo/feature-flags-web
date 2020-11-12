@@ -1,10 +1,10 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Application} from '../../../../models/Application';
 import {CreateRuleDto, Share} from '../../../../models/dtos/CreateRuleDto';
-import {EndUser} from '../../../../models/EndUser';
 import {FlagDto} from '../../../../models/dtos/FlagDto';
 import {Subscription} from 'rxjs';
 import {EndUsersService} from '../../../../services/end-users.service';
+import {AppDto} from '../../../../models/dtos/AppDto';
+import {EndUserDto} from '../../../../models/dtos/EndUserDto';
 
 @Component({
   selector: 'app-create-jfo-rule',
@@ -12,11 +12,11 @@ import {EndUsersService} from '../../../../services/end-users.service';
   styleUrls: ['./create-jfo-rule.component.css']
 })
 export class CreateJFORuleComponent implements OnInit, OnDestroy {
-  @Input() app: Application;
+  @Input() app: AppDto;
   @Input() rule: CreateRuleDto;
   @Input() flag: FlagDto;
 
-  users: EndUser[];
+  users: EndUserDto[];
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -26,7 +26,7 @@ export class CreateJFORuleComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.rule.shares = [new Share(0, 100)];
     this.subscriptions.push(this.endUserService.getUsersOfApp(this.app.id).subscribe(
-      (val2: EndUser[]) => {
+      (val2: EndUserDto[]) => {
         this.users = val2;
       },
       error => {

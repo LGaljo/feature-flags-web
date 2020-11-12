@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Application} from '../../../../models/Application';
 import {CreateRuleDto, Share} from '../../../../models/dtos/CreateRuleDto';
 import {FlagDto} from '../../../../models/dtos/FlagDto';
+import {AppDto} from '../../../../models/dtos/AppDto';
 
 @Component({
   selector: 'app-create-sae-rule',
@@ -9,7 +9,7 @@ import {FlagDto} from '../../../../models/dtos/FlagDto';
   styleUrls: ['./create-sae-rule.component.css']
 })
 export class CreateSAERuleComponent implements OnInit {
-  @Input() app: Application;
+  @Input() app: AppDto;
   @Input() rule: CreateRuleDto;
   @Input() flag: FlagDto;
 

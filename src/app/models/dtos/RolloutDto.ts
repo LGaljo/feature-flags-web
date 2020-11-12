@@ -1,10 +1,10 @@
-import {BaseEntity} from '../BaseEntity';
-import {Application} from '../Application';
 import {FlagDto} from './FlagDto';
+import {AppDto} from './AppDto';
 
-export class RolloutDto extends BaseEntity {
+export class RolloutDto {
   id: number;
-  application: Application;
+  createdAt: Date;
+  application: AppDto;
   completed: number;
   flag: FlagDto;
   interval: number;

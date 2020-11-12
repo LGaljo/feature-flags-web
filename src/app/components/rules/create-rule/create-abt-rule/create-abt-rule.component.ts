@@ -1,8 +1,8 @@
 import {Component, Input, NgZone, OnInit} from '@angular/core';
-import {Application} from '../../../../models/Application';
 import {CreateRuleDto, Share} from '../../../../models/dtos/CreateRuleDto';
 import {FlagDto} from '../../../../models/dtos/FlagDto';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AppDto} from '../../../../models/dtos/AppDto';
 
 @Component({
   selector: 'app-create-abt-rule',
@@ -10,7 +10,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./create-abt-rule.component.css']
 })
 export class CreateABTRuleComponent implements OnInit {
-  @Input() app: Application;
+  @Input() app: AppDto;
   @Input() rule: CreateRuleDto;
   @Input() flag: FlagDto;
 

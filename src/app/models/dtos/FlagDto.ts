@@ -1,9 +1,13 @@
-import {DataType} from '../Flag';
-
 export class FlagDto {
-  id: number;
-  defaultValue: number;
-  name: string;
-  description: string;
+  appId: number;
   dataType: DataType;
+  defaultValue: number;
+  description: string;
+  expirationDate: Date;
+  id: number;
+  name: string;
+}
+
+export enum DataType {
+  INT = 'INT', BOOL = 'BOOL'
 }

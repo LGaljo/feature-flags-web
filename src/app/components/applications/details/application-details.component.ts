@@ -1,5 +1,4 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Application} from '../../../models/Application';
 import {AppsService} from '../../../services/apps.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,6 +8,7 @@ import {DialogYesnoComponent} from '../../dialog-yesno/dialog-yesno.component';
 import {FlagsService} from '../../../services/flags.service';
 import {RolloutDto} from '../../../models/dtos/RolloutDto';
 import {RulesService} from '../../../services/rules.service';
+import {AppDto} from '../../../models/dtos/AppDto';
 
 @Component({
   selector: 'app-details',
@@ -17,7 +17,7 @@ import {RulesService} from '../../../services/rules.service';
 })
 export class ApplicationDetailsComponent implements OnInit, OnDestroy {
 
-  @Input() app: Application;
+  @Input() app: AppDto;
   flags: FlagDto[];
   rollouts: RolloutDto[];
 
@@ -37,7 +37,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(this.route.params.subscribe(params => {
-      this.app = new Application();
+      this.app = new AppDto();
       this.app.id = params.id;
     }));
     this.getData();
@@ -50,7 +50,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
   getData() {
     if (this.app && this.app.id) {
       this.subscriptions.push(this.appsService.get(this.app.id).subscribe(
-        (val: Application) => {
+        (val: AppDto) => {
           this.app = val;
         },
         error => {

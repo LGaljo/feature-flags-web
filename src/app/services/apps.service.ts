@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {BaseService} from './base.service';
 import {catchError} from 'rxjs/operators';
-import {Application} from '../models/Application';
 import {Observable} from 'rxjs';
+import {AppDto} from '../models/dtos/AppDto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +15,9 @@ export class AppsService extends BaseService<any> {
     super(http, AppsService.ENTITY_ENDPOINT);
   }
 
-  create(name: string): Observable<Application> {
+  create(name: string): Observable<AppDto> {
     const params = new HttpParams();
-    return this.http.post<Application>(`${this.actionUrl}${this.ENTITY_ENDPOINT}`, {name}, {
+    return this.http.post<AppDto>(`${this.actionUrl}${this.ENTITY_ENDPOINT}`, {name}, {
       headers: this.headers,
       params
     })

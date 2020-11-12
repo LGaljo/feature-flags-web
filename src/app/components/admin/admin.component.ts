@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {Application} from '../../models/Application';
 import {AdminService} from '../../services/admin.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 

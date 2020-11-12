@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppsService} from '../../../services/apps.service';
 import {Subscription} from 'rxjs';
-import {EndUser} from '../../../models/EndUser';
 import {Router} from '@angular/router';
-import {Application} from '../../../models/Application';
+import {AppDto} from '../../../models/dtos/AppDto';
 
 @Component({
   selector: 'app-create-app',
@@ -32,7 +31,7 @@ export class CreateAppComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       this.subscriptions.push(this.appsService.create(this.form.value.name).subscribe(
-        (val: Application) => {
+        (val: AppDto) => {
           if (val) {
             this.router.navigate(['/applications/' + val.id]);
           }

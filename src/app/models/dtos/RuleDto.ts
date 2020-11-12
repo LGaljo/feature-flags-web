@@ -1,7 +1,6 @@
-import {BaseEntity} from '../BaseEntity';
-import {DataType} from '../Flag';
+import {DataType} from './FlagDto';
 
-export class RuleDto extends BaseEntity {
+export class RuleDto {
   id: number;
   value: number;
   name: string;

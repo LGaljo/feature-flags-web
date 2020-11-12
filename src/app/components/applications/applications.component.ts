@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppsService} from '../../services/apps.service';
-import {Application} from '../../models/Application';
 import {Router} from '@angular/router';
+import {AppDto} from '../../models/dtos/AppDto';
 
 @Component({
   selector: 'app-applications',
@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class ApplicationsComponent implements OnInit, OnDestroy {
 
-  apps: Application[] = [];
+  apps: AppDto[] = [];
 
   private subscriptions: Subscription[] = [];
 

@@ -11,7 +11,11 @@
 <div class="row">
   <div class="col text-center">
     <div *ngIf="apps.length > 0" class="list-group">
-      <a [routerLink]='"/applications/" + element.id' *ngFor="let element of apps" class="list-group-item list-group-item-action">{{element.name}}</a>
+      <a [routerLink]='"/applications/" + element.id'
+         *ngFor="let element of apps" class="list-group-item list-group-item-action"
+      >
+        {{element.name}}
+      </a>
     </div>
 
     <p *ngIf="apps.length == 0">There are no apps</p>

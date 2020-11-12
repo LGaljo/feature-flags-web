@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Application} from '../../../models/Application';
 import {FlagDto} from '../../../models/dtos/FlagDto';
 import {Subscription} from 'rxjs';
 import {AppsService} from '../../../services/apps.service';
@@ -7,11 +6,12 @@ import {ActivatedRoute} from '@angular/router';
 import {FlagsService} from '../../../services/flags.service';
 import {CreateRuleDto, RuleType, Share} from '../../../models/dtos/CreateRuleDto';
 import {RulesService} from '../../../services/rules.service';
-import {EndUser} from '../../../models/EndUser';
 import {EndUsersService} from '../../../services/end-users.service';
 import {CreateRolloutDto} from '../../../models/dtos/CreateRolloutDto';
 import {TimeUnit} from '../../../models/dtos/RolloutDto';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AppDto} from '../../../models/dtos/AppDto';
+import {EndUserDto} from '../../../models/dtos/EndUserDto';
 
 @Component({
   selector: 'app-create-rule',
@@ -20,12 +20,12 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class CreateRuleComponent implements OnInit, OnDestroy {
 
-  app: Application;
+  app: AppDto;
   flag: FlagDto = new FlagDto();
   rule: CreateRuleDto = new CreateRuleDto();
   rollout: CreateRolloutDto;
   date: Date;
-  users: EndUser[];
+  users: EndUserDto[];
 
   private subscriptions: Subscription[] = [];
 
@@ -53,7 +53,7 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
   getData() {
     this.subscriptions.push(this.route.params.subscribe(params => {
       this.subscriptions.push(this.appsService.get(params.aid).subscribe(
-        (val: Application) => {
+        (val: AppDto) => {
           this.app = val;
           this.rollout.appId = val.id;
         },

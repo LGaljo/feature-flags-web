@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Application} from '../../../models/Application';
 import {FlagDto} from '../../../models/dtos/FlagDto';
 import {RolloutDto} from '../../../models/dtos/RolloutDto';
 import {Subscription} from 'rxjs';
@@ -7,7 +6,7 @@ import {AppsService} from '../../../services/apps.service';
 import {FlagsService} from '../../../services/flags.service';
 import {RulesService} from '../../../services/rules.service';
 import {ActivatedRoute} from '@angular/router';
-import {Flag} from '../../../models/Flag';
+import {AppDto} from '../../../models/dtos/AppDto';
 
 @Component({
   selector: 'app-details-rollout',
@@ -16,7 +15,7 @@ import {Flag} from '../../../models/Flag';
 })
 export class DetailsRolloutComponent implements OnInit, OnDestroy {
 
-  app: Application;
+  app: AppDto;
   flag: FlagDto;
   sr: RolloutDto;
   private subscriptions: Subscription[] = [];
@@ -31,9 +30,9 @@ export class DetailsRolloutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(this.route.params.subscribe(params => {
-      this.app = new Application();
+      this.app = new AppDto();
       this.app.id = params.aid;
-      this.flag = new Flag();
+      this.flag = new FlagDto();
       this.flag.id = params.fid;
       this.sr = new RolloutDto();
       this.sr.id = params.rid;

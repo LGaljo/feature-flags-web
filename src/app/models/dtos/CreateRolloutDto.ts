@@ -1,7 +1,6 @@
-import {BaseEntity} from '../BaseEntity';
 import {TimeUnit} from './RolloutDto';
 
-export class CreateRolloutDto extends BaseEntity {
+export class CreateRolloutDto {
   appId: number;
   flagId: number;
   interval: number;

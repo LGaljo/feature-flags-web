@@ -1,4 +1,4 @@
-import {DataType} from '../Flag';
+import {DataType} from './FlagDto';
 
 export class CreateRuleDto {
   ruleType: RuleType;
