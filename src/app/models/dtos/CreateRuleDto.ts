@@ -5,6 +5,7 @@ export class CreateRuleDto {
   dataType: DataType;
   shares: Share[];
   user: number;
+  changeDefault: boolean;
 }
 
 export class Share {

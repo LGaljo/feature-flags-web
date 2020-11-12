@@ -18,5 +18,6 @@ export class CreateSAERuleComponent implements OnInit {
 
   ngOnInit(): void {
     this.rule.shares = [new Share(0, 100)];
+    this.rule.changeDefault = false;
   }
 }
