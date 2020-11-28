@@ -11,7 +11,7 @@
       <p><b>Name:</b> {{flag?.name}}</p>
       <p><b>Description:</b> {{flag?.description}}</p>
       <p><b>Default value:</b> {{flag?.defaultValue}} ({{flag?.dataType}})</p>
-      <p><b>Expiration date:</b> {{flag?.expirationDate | date:"dd. MM. yyyy HH:mm:ss" }} (in {{remainingTime}} days)</p>
+      <p><b>Expiration date:</b> {{flag?.expirationDate | date:"dd. MM. yyyy HH:mm:ss" }} (in {{flag?.expirationDate | expiresIn}} days)</p>
     </div>
   </div>
 

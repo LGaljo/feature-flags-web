@@ -19,7 +19,6 @@ export class FlagsDetailsComponent implements OnInit, OnDestroy {
   flagId: number;
   appId: number;
   rules: RuleDto[];
-  remainingTime: number;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -42,10 +41,6 @@ export class FlagsDetailsComponent implements OnInit, OnDestroy {
     }));
     this.subscriptions.push(this.flagsService.getFlag(this.flagId).subscribe(params => {
       this.flag = params;
-
-      this.remainingTime = Math.ceil(
-        Math.abs(Date.now() - Date.parse(this.flag?.expirationDate.toString())
-        ) / (1000 * 3600 * 24));
     }));
 
   }

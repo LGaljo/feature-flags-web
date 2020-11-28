@@ -66,6 +66,7 @@ import { CreateSAERuleComponent } from './components/rules/create-rule/create-sa
 import { CreateABTRuleComponent } from './components/rules/create-rule/create-abt-rule/create-abt-rule.component';
 import { CreateJFORuleComponent } from './components/rules/create-rule/create-jfo-rule/create-jfo-rule.component';
 import { CreateGRORuleComponent } from './components/rules/create-rule/create-gro-rule/create-gro-rule.component';
+import {ExpiresPipe} from './pipes/expires';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { CreateGRORuleComponent } from './components/rules/create-rule/create-gr
     CreateABTRuleComponent,
     CreateJFORuleComponent,
     CreateGRORuleComponent,
+    ExpiresPipe
   ],
   imports: [
     BrowserModule,
