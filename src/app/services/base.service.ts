@@ -3,6 +3,7 @@ import {environment} from '../../environments/environment.prod';
 import {Observable, pipe, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {ExceptionDto} from '../models/dtos/ExceptionDto';
+import {AppDto} from '../models/dtos/AppDto';
 
 export class BaseService<Type> {
 
@@ -30,8 +31,8 @@ export class BaseService<Type> {
     return throwError('Something bad happened; please try again later.');
   }
 
-  getAll(): Observable<Type[]> {
-    return this.http.get<Type[]>(`${this.actionUrl}${this.ENTITY_ENDPOINT}`, {
+  getAll(): Observable<AppDto[]> {
+    return this.http.get<AppDto[]>(`${this.actionUrl}${this.ENTITY_ENDPOINT}`, {
       headers: this.headers
     })
       .pipe(catchError(BaseService.handleError));

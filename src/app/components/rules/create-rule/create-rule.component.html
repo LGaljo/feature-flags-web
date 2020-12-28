@@ -14,11 +14,11 @@
       <label>Type of rule</label>
       <br>
       <mat-radio-group aria-label="Select an option" [(ngModel)]="rule.ruleType">
-        <mat-radio-button value="SAME_FOR_EVERYONE" class="ml-1">Same for everyone</mat-radio-button>
+        <mat-radio-button value="GENERAL" class="ml-1">Generally</mat-radio-button>
         <br>
         <mat-radio-button value="AB_TESTING" class="ml-1">A/B testing</mat-radio-button>
         <br>
-        <mat-radio-button value="USER_SPECIFIC" class="ml-1">Just for one</mat-radio-button>
+        <mat-radio-button value="INDIVIDUAL" class="ml-1">Individually</mat-radio-button>
         <br>
         <mat-radio-button value="GRADUAL_ROLLOUT" class="ml-1">Gradual rollout</mat-radio-button>
       </mat-radio-group>
@@ -27,7 +27,7 @@
 </div>
 
 <div *ngIf="app">
-  <div *ngIf="rule.ruleType === 'SAME_FOR_EVERYONE'">
+  <div *ngIf="rule.ruleType === 'GENERAL'">
     <app-create-sae-rule [app]="app" [rule]="rule" [flag]="flag"></app-create-sae-rule>
   </div>
 
@@ -35,7 +35,7 @@
     <app-create-abt-rule [app]="app" [rule]="rule" [flag]="flag"></app-create-abt-rule>
   </div>
 
-  <div *ngIf="rule.ruleType === 'USER_SPECIFIC'">
+  <div *ngIf="rule.ruleType === 'INDIVIDUAL'">
     <app-create-jfo-rule [app]="app" [rule]="rule" [flag]="flag"></app-create-jfo-rule>
   </div>
 

@@ -24,8 +24,8 @@ export class FlagsService extends BaseService<any> {
       .pipe(catchError(BaseService.handleError));
   }
 
-  getFlags(id: number) {
-    const params = new HttpParams().set('app_id', String(id));
+  getFlags(appId: number) {
+    const params = new HttpParams().set('app_id', String(appId));
     return this.http.get<FlagDto[]>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/app`,
       {
         headers: this.headers,

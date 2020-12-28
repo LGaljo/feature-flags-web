@@ -5,6 +5,22 @@
   </div>
 </div>
 
+<div class="row mt-3" *ngIf="soonestExpiration < 0">
+  <div class="col">
+    <div class="alert alert-danger" role="alert">
+      This applications contains expired flags!
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3" *ngIf="soonestExpiration < 8 && soonestExpiration > 0">
+  <div class="col">
+    <div class="alert alert-warning" role="alert">
+      This applications contains soon to be expired flags!
+    </div>
+  </div>
+</div>
+
 <div class="row mt-3">
   <div class="col-6">
     <p *ngIf="!app">No data available</p>
@@ -72,7 +88,7 @@
         <td>{{flag.description}}</td>
         <td>{{flag.dataType}}</td>
         <td>{{flag.defaultValue}}</td>
-        <td>{{flag.expirationDate | expiresIn}} days</td>
+        <td>{{flag.expirationDate | expiresIn}}</td>
         <td>
           <button class="btn btn-sm btn-outline-info mr-2"
                   style="padding: .06rem .5rem;"

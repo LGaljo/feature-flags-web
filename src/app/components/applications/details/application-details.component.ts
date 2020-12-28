@@ -20,6 +20,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
   @Input() app: AppDto;
   flags: FlagDto[];
   rollouts: RolloutDto[];
+  soonestExpiration = 8;
 
   private subscriptions: Subscription[] = [];
 
@@ -52,6 +53,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
       this.subscriptions.push(this.appsService.get(this.app.id).subscribe(
         (val: AppDto) => {
           this.app = val;
+          this.app.hasExpiredFlags = true;
         },
         error => {
           console.log(error);
@@ -62,6 +64,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.flagsService.getFlags(this.app.id).subscribe(
       (val: FlagDto[]) => {
         this.flags = val;
+        this.calculateSoonestExpiration();
       },
       error => {
         console.log(error);
@@ -76,6 +79,18 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     ));
+  }
+
+  calculateSoonestExpiration() {
+    this.flags.forEach(flag => {
+      const exp = Math.ceil(
+        (Date.parse(flag.expirationDate.toString()) - Date.now()
+        ) / (1000 * 3600 * 24));
+
+      if (this.soonestExpiration > exp) {
+        this.soonestExpiration = exp;
+      }
+    });
   }
 
   removeAppDialog() {

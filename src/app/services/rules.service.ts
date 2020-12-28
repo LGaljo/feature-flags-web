@@ -44,7 +44,7 @@ export class RulesService extends BaseService<any> {
   getUnfinishedRollouts(appId: number) {
     const params = new HttpParams()
       .set('appId', String(appId));
-    return this.http.get<RolloutDto[]>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/rollout`,
+    return this.http.get<RolloutDto[]>(`${this.actionUrl}/rollout`,
       {
         headers: this.headers,
         params
@@ -54,7 +54,7 @@ export class RulesService extends BaseService<any> {
 
   getRollout(srId: number) {
     const params = new HttpParams();
-    return this.http.get<RolloutDto>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/rollout/${srId}`,
+    return this.http.get<RolloutDto>(`${this.actionUrl}/rollout/${srId}`,
       {
         headers: this.headers,
         params
@@ -64,7 +64,7 @@ export class RulesService extends BaseService<any> {
 
   createRollout(rollout: CreateRolloutDto) {
     const params = new HttpParams();
-    return this.http.post<any>(`${this.actionUrl}${this.ENTITY_ENDPOINT}/rollout`,
+    return this.http.post<any>(`${this.actionUrl}/rollout`,
       rollout,
       {
         headers: this.headers,

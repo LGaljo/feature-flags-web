@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FlagDto} from '../../../models/dtos/FlagDto';
 import {Subscription} from 'rxjs';
 import {AppsService} from '../../../services/apps.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FlagsService} from '../../../services/flags.service';
 import {CreateRuleDto, RuleType, Share} from '../../../models/dtos/CreateRuleDto';
 import {RulesService} from '../../../services/rules.service';
@@ -36,6 +36,7 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
     private rulesService: RulesService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -91,7 +92,7 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
     }
 
     switch (this.rule.ruleType) {
-      case RuleType.SAME_FOR_EVERYONE:
+      case RuleType.GENERAL:
         if (
           this.rule.shares.length === 1 &&
           this.validShare(this.rule.shares[0])) {
@@ -108,7 +109,7 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
           return true;
         }
         break;
-      case RuleType.USER_SPECIFIC:
+      case RuleType.INDIVIDUAL:
         if (
           this.rule.shares.length === 1 &&
           this.validShare(this.rule.shares[0]) &&

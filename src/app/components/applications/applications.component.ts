@@ -3,6 +3,8 @@ import {Subscription} from 'rxjs';
 import {AppsService} from '../../services/apps.service';
 import {Router} from '@angular/router';
 import {AppDto} from '../../models/dtos/AppDto';
+import {FlagDto} from '../../models/dtos/FlagDto';
+import {FlagsService} from '../../services/flags.service';
 
 @Component({
   selector: 'app-applications',
@@ -17,13 +19,15 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
 
   constructor(
     private appsService: AppsService,
+    private flagsService: FlagsService,
     private router: Router
 ) { }
 
   ngOnInit(): void {
     this.subscriptions.push(this.appsService.getAll().subscribe(
-      (val) => {
+      (val: AppDto[]) => {
         this.apps = val;
+        this.getFlagInfo();
       },
       error => {
         console.log(error);
@@ -33,5 +37,23 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(value => value.unsubscribe());
+  }
+
+  getFlagInfo() {
+    for (const app of this.apps) {
+      this.subscriptions.push(this.flagsService.getFlags(app.id).subscribe(
+        (val: FlagDto[]) => {
+          val.forEach((flag) => {
+            console.log(Date.parse(flag.expirationDate.toString()), Date.now());
+            if (Date.parse(flag.expirationDate.toString()) < Date.now()) {
+              app.hasExpiredFlags = true;
+            }
+          });
+        },
+        error => {
+          console.log(error);
+        }
+      ));
+    }
   }
 }

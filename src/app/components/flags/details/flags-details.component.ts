@@ -36,13 +36,12 @@ export class FlagsDetailsComponent implements OnInit, OnDestroy {
       this.appId = params.aid;
     }));
 
-    this.subscriptions.push(this.rulesService.getRulesForFlag(this.appId, this.flagId).subscribe(params => {
-      this.rules = params;
-    }));
     this.subscriptions.push(this.flagsService.getFlag(this.flagId).subscribe(params => {
       this.flag = params;
     }));
-
+    this.subscriptions.push(this.rulesService.getRulesForFlag(this.appId, this.flagId).subscribe(params => {
+      this.rules = params;
+    }));
   }
 
   ngOnDestroy(): void {
