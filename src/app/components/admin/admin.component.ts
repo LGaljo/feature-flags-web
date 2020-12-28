@@ -47,7 +47,9 @@ export class AdminComponent implements OnInit, OnDestroy {
         },
         error => {
           console.log(error);
-          this.snackBar.open('Request failed. Check console.');
+          this.snackBar.open('Request failed. Check console.', '', {
+            duration: 3000
+          });
         }
       ));
     }

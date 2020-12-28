@@ -146,21 +146,27 @@ export class CreateRuleComponent implements OnInit, OnDestroy {
       console.log(this.rollout);
       this.subscriptions.push(this.rulesService.createRollout(this.rollout).subscribe(
         (ret) => {
-          this.snackBar.open('Successfully created a new rollout!');
+          this.snackBar.open('Successfully created a new rollout!', '', {
+            duration: 3000
+          });
+          this.router.navigate(['/applications/' + this.app.id]);
         },
         error => {
           console.log(error);
-          this.snackBar.open('Error occurred! Check logs.');
+          this.snackBar.open('Error occurred! Check logs.', '', {
+            duration: 3000
+          });
         }
       ));
     } else {
       this.subscriptions.push(this.rulesService.createRule(this.rule, this.app.id, this.flag.id).subscribe(
         (ret) => {
-          this.snackBar.open('Successfully created a new rule!');
+          this.snackBar.open('Successfully created a new rule!', '', { duration: 3000 });
+          this.router.navigate(['/applications/' + this.app.id]);
         },
         error => {
           console.log(error);
-          this.snackBar.open('Error occurred! Check logs.');
+          this.snackBar.open('Error occurred! Check logs.', '', { duration: 3000 });
         }
       ));
     }

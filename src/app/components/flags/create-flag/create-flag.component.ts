@@ -72,14 +72,20 @@ export class CreateFlagComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.flagsService.createFlags([flag]).subscribe(
       () => {
-        this.snackBar.open('Successfully created flag');
+        this.snackBar.open('Successfully created flag!', '', {
+          duration: 3000
+        });
         this.goBack();
       },
       (error: ExceptionDto) => {
         if (error.status === 1001) {
-          this.snackBar.open('DB Error: Flag name already exists. Choose a new name.');
+          this.snackBar.open('DB Error: Flag name already exists. Choose a new name.', '', {
+            duration: 3000
+          });
         } else {
-          this.snackBar.open('Error occurred. Check logs');
+          this.snackBar.open('Error occurred. Check logs', '', {
+            duration: 3000
+          });
           console.log(error);
         }
       }
